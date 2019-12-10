@@ -15,9 +15,45 @@ public class Subject101 {
         }
     }
 
-//    public boolean isSymmetric(TreeNode root) {
-//
-//    }
+    public boolean isSymmetric(TreeNode root) {
+
+        Queue<TreeNode> queueL = new LinkedList<>();
+        Queue<TreeNode> queueR = new LinkedList<>();
+
+        if (root != null) {
+            queueL.add(root);
+            queueR.add(root);
+        }
+
+        while (!queueL.isEmpty()) {
+
+            TreeNode tempL = queueL.poll();
+            TreeNode tempR = queueR.poll();
+
+            if (tempL.val != tempR.val)
+                return false;
+
+            if ((tempL.left == null && tempR.right != null) || (tempL.left != null && tempR.right == null))
+                return false;
+
+            if ((tempL.right == null && tempR.left != null) || (tempL.right != null && tempR.left == null))
+                return false;
+
+            if (tempL.left != null)
+                queueL.add(tempL.left);
+            if (tempL.right != null)
+                queueL.add(tempL.right);
+
+            if (tempR.right != null)
+                queueR.add(tempR.right);
+            if (tempR.left != null)
+                queueR.add(tempR.left);
+
+        }
+
+        return true;
+
+    }
 
     public static void main(String[] args) {
 
